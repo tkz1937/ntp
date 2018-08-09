@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Add sudoers entries
+#--------------------
+
+/usr/sbin/addsudo /usr/sbin/ntpd app-ntp-core
+
+# Open port for NTP
+#-------------------
+
+export IPTABLES="/sbin/iptables -w"
+/bin/sh /etc/clearos/firewall.d/10-ntp

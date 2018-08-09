@@ -1,0 +1,33 @@
+#!/bin/sh
+
+TIMESTAMP=`date "+%b-%d-%Y-%T"`
+
+# Set default configuration
+#--------------------------
+
+logger -p local6.notice -t installer "app-ntp-core - setting default configuration"
+
+if [ -e /etc/ntp.conf ]; then
+    cp /etc/ntp.conf /var/clearos/ntp/backup/ntp.conf.$TIMESTAMP
+fi
+
+cp /usr/clearos/apps/ntp/deploy/ntp.conf /etc/ntp.conf
+
+# Disable chrony
+#---------------
+
+CHECK=`systemctl is-enabled chronyd 2>/dev/null`
+if [ "$CHECK" == "enabled" ]; then
+    logger -p local6.notice -t installer "app-ntp-core - disabling chronyd"
+    systemctl disable chronyd.service 2>/dev/null
+    systemctl stop chronyd.service 2>/dev/null
+fi
+
+# Set default start/boot
+#-----------------------
+
+logger -p local6.notice -t installer "app-ntp-core - enabling NTP server"
+chkconfig ntpd on >/dev/null 2>&1
+
+logger -p local6.notice -t installer "app-ntp-core - starting NTP server"
+service ntpd start >/dev/null 2>&1
