@@ -1,2 +1,2 @@
 clearos ntp app
-with add ,edit and remote option
+with add ,edit and remove option
