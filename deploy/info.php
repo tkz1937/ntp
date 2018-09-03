@@ -5,7 +5,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 $app['basename'] = 'ntp';
-$app['version'] = '2.5.0';
+$app['version'] = '1.0.0';
 $app['release'] = '1';
 $app['vendor'] = 'itot';
 $app['packager'] = 'itot';
@@ -40,28 +40,4 @@ $app['core_requires'] = array(
     'app-date-core >= 1:1.4.8',
     'app-network-core >= 1:1.4.70',
     'ntp >= 5.0.4',
-    'syswatch'
-);
-
-$app['core_directory_manifest'] = array(
-    '/var/clearos/ntp' => array(),
-    '/var/clearos/ntp/backup' => array(),
-    '/etc/clearos/firewall.d' => array(),
-);
-
-$app['core_file_manifest'] = array(
-    'ntpd.php'=> array('target' => '/var/clearos/base/daemon/ntpd.php'),
-    'network-connected-event'=> array(
-        'target' => '/var/clearos/events/network_connected/ntp',
-        'mode' => '0755'
-    ),
-    '10-ntp' => array(
-        'target' => '/etc/clearos/firewall.d/',
-        'mode' => '0755',
-    ),
-);
-
-$app['delete_dependency'] = array(
-    'app-ntp-core',
-    'ntp',
-);
+    's
